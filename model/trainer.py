@@ -18,7 +18,7 @@ def main(hparams):
 
     optimizer = AdamW(optimizer_params, lr=hparams.lr, betas=(0.9, 0.999), eps=1e-6, weight_decay=0.01)
     model = BugBERTModel(model=bugbert_model, optimizer=optimizer, num_train_steps=hparams.num_train_steps)
-    data = BugBERTDataModule(hparams.dataset_file, hparams.brs_dir, hparams.batch_size)
+    data = BugBERTDataModule(dataset_df_file=hparams.dataset_file, tokenizer=tokenizer, brs_dir=hparams.brs_dir, batch_size=hparams.batch_size)
 
     tb_logger = pl_loggers.TensorBoardLogger(save_dir=hparams.logs_output)
 
