@@ -18,7 +18,7 @@ class BugBERTModel(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
         x_a, x_p, x_n = batch
-        embd_x_a, embd_x_p, embd_x_n = self(x_a, x_p, x_n)
+        embd_x_a, embd_x_p, embd_x_n = self.model(x_a, x_p, x_n)
 
         loss = self.criterion(embd_x_a, embd_x_p, embd_x_n)
         self.log("train_loss", loss)
