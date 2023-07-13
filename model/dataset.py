@@ -22,7 +22,7 @@ class BugBERTDataset(Dataset):
         truncation=True
     )
 
-    return inputs
+        return inputs
 
     def __len__(self):
         return len(self.samples)
