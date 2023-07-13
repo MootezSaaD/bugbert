@@ -5,11 +5,11 @@ from utils import read_multiple_files
 
 class BugBERTDataset(Dataset):
     """
-    This class expects a CSV file that contains the training triplets.
-    The CSV should have the following columns: anchor, pos, neg.
+    This class expects a pandas dataframe that contains the triplets.
+    The dataframe should have the following columns: anchor, pos, neg.
     """
-    def __init__(self, dataset_df_file, brs_dir, transform=None, target_transform=None):
-        self.samples = pd.read_csv(dataset_df_file)
+    def __init__(self, dataframe, brs_dir, transform=None, target_transform=None):
+        self.samples = dataframe
         self.brs_dir = brs_dir
 
     def __len__(self):
