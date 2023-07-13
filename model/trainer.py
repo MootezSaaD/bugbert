@@ -1,3 +1,5 @@
+from argparse import ArgumentParser
+
 from bugbert import BugBERT
 from pl_bugbert import BugBERTModel
 from transformers import AutoTokenizer, AutoModel
@@ -34,14 +36,14 @@ def main(hparams):
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--model_name_or_path", default=None)
-    parser.add_arguments("--num_train_steps", default=None) # num_train_steps = epochs * (total_samples_samples/batch_size)
-    parser.add_arguments("--dataset_file", default=None)
-    parser.add_arguments("--brs_dir", default=None)
+    parser.add_argument("--num_train_steps", default=None) # num_train_steps = epochs * (total_samples_samples/batch_size)
+    parser.add_argument("--dataset_file", default=None)
+    parser.add_argument("--brs_dir", default=None)
     parser.add_argument("--epochs", default=None)
     parser.add_argument("--batch_size", default=None)
     parser.add_argument("--lr", default=2e-5)
-    parse.add_argument("--weight_decay", default=0.01)
-    parse.add_argument("--logs_output", default='./')
+    parser.add_argument("--weight_decay", default=0.01)
+    parser.add_argument("--logs_output", default='./')
     args = parser.parse_args()
 
     main(args)
