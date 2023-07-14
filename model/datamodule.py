@@ -1,6 +1,7 @@
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 from dataset import BugBERTDataset
+import pandas as pd
 
 class BugBERTDataModule(pl.LightningDataModule):
 
@@ -10,9 +11,9 @@ class BugBERTDataModule(pl.LightningDataModule):
         self.samples = pd.read_csv(dataset_df_file)
         self.batch_size = batch_size
         train_samples = self.samples.sample(frac=.8, random_state=0)
-        val_samples = self.samples.drop(self.train_samples.index)
-        self.train_dataset = BugBERTDataset(train_samples, tokenizer, self.data_dir)
-        self.val_dataset = BugBERTDataset(val_samples, tokenizer, self.data_dir)
+        val_samples = self.samples.drop(train_samples.index)
+        self.train_dataset = BugBERTDataset(dataframe=train_samples.reset_index(), brs_dir=self.data_dir, tokenizer=tokenizer)
+        self.val_dataset = BugBERTDataset(dataframe=val_samples.reset_index(), brs_dir=self.data_dir, tokenizer=tokenizer)
 
     def train_dataloader(self):
         return DataLoader(self.train_dataset, batch_size=self.batch_size)
