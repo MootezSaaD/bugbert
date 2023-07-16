@@ -43,20 +43,20 @@
 
 <br>
 <h5> Change path for changing the security of the elastic search (username, password, https) </h5>
-<p> make every security related features from **true** to **false**</p>
+<p> make every security related features from <b>true</b> to <b>false</b></p>
 
-        xpack.security.enabled: **false**
+        xpack.security.enabled: false
 
-        xpack.security.enrollment.enabled: **false**
+        xpack.security.enrollment.enabled: false
         
         # Enable encryption for HTTP API client connections, such as Kibana, Logstash, and Agents
         xpack.security.http.ssl:
-          enabled: **false**
+          enabled: false
           keystore.path: certs/http.p12
         
         # Enable encryption and mutual authentication between cluster nodes
         xpack.security.transport.ssl:
-          enabled: **false**
+          enabled: false
           verification_mode: certificate
           keystore.path: certs/transport.p12
           truststore.path: certs/transport.p12
@@ -73,6 +73,26 @@
     </p>
 </div>
 
-<i>*Its suggested to modify the configurations before running the elastic search server for the first time.</i>
+<i>*It's better to modify the configurations before running the elastic search server for the first time.</i>
 
 
+<br>
+<div>
+    <h3>Usage Guide</h3>
+
+    <h4>Define Configuration</h4>
+    <p>Define all the configuration in the <code>config.yaml</code> in config folder</p>
+
+<h4>Start Server</h4>
+<p>run the <code>elasticsearch.bat</code> in the <code>bin</code> folder of the elastic search home directory</p>
+
+<h4>Create Index</h4>
+<p> To create index and define the dimensions and configs, run <code>Index_Creator.py</code> in <code>Indexer</code> directory</p>
+
+<h4>Index Documents</h4>
+<p>Import <code>Indexer</code> classs in Indexer/Indexer.py and index document one by one calling <code>index</code> function. Check example code in the test folder.</p>
+
+<h4>Search Documents</h4>
+<p>Import <code>Searcher</code> classs in Searcher/Searcher.py and search document by calling <code>search</code> function. Check example code in the test folder.</p>
+
+</div>
