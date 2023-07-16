@@ -1,9 +1,27 @@
 from elasticsearch import Elasticsearch
+from elastic_search.config.Elasic_Config_Loader import Elasic_Config_Loader
+
+import json
 
 class Searcher:
-    def __init__(self, index_name):
-        self.index_name = index_name
-        self.es_client = Elasticsearch()
+    def __init__(self, index_name=None):
+        # Create an instance of ConfigLoader (config file will be loaded automatically)
+        config_loader = Elasic_Config_Loader()
+
+        # Accessing configuration parameters using class methods
+        elastic_search_host = config_loader.get_elastic_search_host()
+        elastic_search_port = config_loader.get_elastic_search_port()
+        elastic_search_index = config_loader.get_index()
+
+        if index_name is None:
+            self.index_name = elastic_search_index
+        else:
+            self.index_name = index_name
+
+        # Create an instance of Elasticsearch client
+        self.es_client = Elasticsearch('http://' + elastic_search_host + ':' + str(elastic_search_port),
+                                       # http_auth=("username", "password"),
+                                       verify_certs=False)
 
     def search(self, query_embeddings, size=10):
         search_query = {
@@ -11,17 +29,51 @@ class Searcher:
                 "script_score": {
                     "query": {"match_all": {}},
                     "script": {
-                        "source": "cosineSimilarity(params.queryVector, doc['embeddings']) + 1.0",
-                        "params": {"queryVector": query_embeddings}
+                        "source": "cosineSimilarity(params.query_vector, 'embeddings') + 1.0",
+                        "params": {"query_vector": query_embeddings}
                     }
                 }
             },
             "size": size,
-            "_source": ["id", "title", "text"]
+            "_source": ["doc_id.keyword", "title", "text"]
         }
         result = self.es_client.search(index=self.index_name, body=search_query)
-        result_dict = result.get("hits", {}).get("hits", [])
-        # result_dict = result.get("hits", {})
 
-        print(result_dict)
-        # return result_dict['id'], result_dict['title'], result_dict['text']
+        print(result)
+
+        results_json = []
+
+        for hit in result["hits"]["hits"]:
+            source = hit.get("_source", {})
+            doc_id = source.get("doc_id.keyword")
+            title = source.get("title")
+            text = source.get("text")
+
+            result_json = {
+                "doc_id": doc_id,
+                "title": title,
+                "text": text
+            }
+
+            results_json.append(result_json)
+
+            json_results = json.dumps(results_json)
+
+        return json_results
+        # results_json = []
+        #
+        # for hit in result:
+        #     source = hit.get("_source", {})
+        #     doc_id = hit.get("doc_id.keyword")
+        #     title = source.get("title")
+        #     text = source.get("text")
+        #
+        #     result_json = {
+        #         "id": doc_id,
+        #         "title": title,
+        #         "text": text
+        #     }
+        #
+        #     results_json.append(result_json)
+        #
+        # return json.dumps(results_json)
