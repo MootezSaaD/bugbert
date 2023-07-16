@@ -3,6 +3,10 @@ elasticsearch:
   port: 9200
   index_name: shakepeare_index
 
+Embedding:
+  dimension: 384
 
-#app:
-#  debug: true
+#not necessary now
+Fields:
+  doc_id:
+  text:
