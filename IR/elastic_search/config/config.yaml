@@ -1,8 +1,8 @@
 elasticsearch:
   host: localhost
   port: 9200
-  username: myuser
-  password: mypassword
+  index_name: shakepeare_index
+
 
 #app:
 #  debug: true

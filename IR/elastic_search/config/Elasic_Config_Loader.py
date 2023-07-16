@@ -19,6 +19,9 @@ class Elasic_Config_Loader:
     def get_elastic_search_port(self):
         return self.config["elasticsearch"]["port"]
 
+    def get_index(self):
+        return self.config["elasticsearch"]["index_name"]
+
 
 if __name__ == "__main__":
     # Create an instance of ConfigLoader (config file will be loaded automatically)

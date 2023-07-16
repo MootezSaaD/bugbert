@@ -20,7 +20,8 @@ class Searcher:
             "_source": ["id", "title", "text"]
         }
         result = self.es_client.search(index=self.index_name, body=search_query)
-        # result = self.es_client.knn_search(index=self.index_name, body=search_query, k=10)
         result_dict = result.get("hits", {}).get("hits", [])
+        # result_dict = result.get("hits", {})
 
-        return result_dict['id'], result_dict['title'], result_dict['text']
+        print(result_dict)
+        # return result_dict['id'], result_dict['title'], result_dict['text']
