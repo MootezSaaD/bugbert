@@ -1,4 +1,4 @@
-<section class="main-content">
+
 <h1> Elastic Search: How to Set-up </h1>
 
 <h2> Install Elastic Search </h2>
@@ -34,17 +34,17 @@
     <p>
         2. Open the elasticsearch.yml file
     </p>
-    
+
 <h5> Change path for changing the location of the index </h5>
-    
+
         path.data: C:\Users\user\..\..\.. (example)
-    
+
 <p>other than index file, you can change log file location as well</p>
 
-
+<br>
 <h5> Change path for changing the security of the elastic search (username, password, https) </h5>
 <p> make every security related features from **true** to **false**</p>
-    
+
         xpack.security.enabled: **false**
 
         xpack.security.enrollment.enabled: **false**
@@ -61,16 +61,18 @@
           keystore.path: certs/transport.p12
           truststore.path: certs/transport.p12
 
-
 </div>
 
 <br>
 <br>
 
 <div>
-    <h4>Install ElasticSearch for python</h4>
+    <h3>Install ElasticSearch for python</h3>
     <p>
         <code>pip install elasticsearch</code>
     </p>
 </div>
+
+<i>*Its suggested to modify the configurations before running the elastic search server for the first time.</i>
+
 
