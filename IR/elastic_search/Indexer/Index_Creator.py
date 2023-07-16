@@ -1,13 +1,16 @@
 from elasticsearch import Elasticsearch
 
 from elastic_search.config.Elasic_Config_Loader import Elasic_Config_Loader
+from elastic_search.config.ConfigLoader import ConfigLoader
 
 # Create an instance of ConfigLoader (config file will be loaded automatically)
 config_loader = Elasic_Config_Loader()
+config_loader_2 = ConfigLoader()
 
 # Accessing configuration parameters using class methods
 elastic_search_host = config_loader.get_elastic_search_host()
 elastic_search_port = config_loader.get_elastic_search_port()
+embedding_dimension = config_loader.get_value("Embedding", "dimension")
 
 index_name = "shakepeare_index"
 
@@ -22,7 +25,7 @@ config = {
             "text": {"type": "text"},
             "embeddings": {
                     "type": "dense_vector",
-                    "dims": 384,
+                    "dims": embedding_dimension,
                     "index": True,
                     "similarity": "cosine"
                 }
