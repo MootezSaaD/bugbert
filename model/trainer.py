@@ -28,7 +28,7 @@ def main(hparams):
         accelerator='gpu',
         devices=[0],
         max_epochs=hparams.epochs,
-        precision=16,
+        precision='16-mixed',
         logger=tb_logger
     )
     trainer.fit(model, datamodule=data)
