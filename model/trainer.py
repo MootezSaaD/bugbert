@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
-
+import torch
+import numpy as np
 from bugbert import BugBERT
 from pl_bugbert import BugBERTModel
 from transformers import AutoTokenizer, AutoModel
@@ -8,6 +9,13 @@ import pytorch_lightning as pl
 from torch.optim import AdamW
 from utils import get_optimizer_params
 from datamodule import BugBERTDataModule
+
+def torch_setup(seed=4096):
+    seed = seed
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 def main(hparams):
 
@@ -46,4 +54,5 @@ if __name__ == "__main__":
     parser.add_argument("--weight_decay", default=0.01, type=float)
     parser.add_argument("--logs_output", default='./')
     args = parser.parse_args()
+    torch_setup()
     main(args)
