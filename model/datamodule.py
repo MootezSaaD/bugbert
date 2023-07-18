@@ -16,7 +16,7 @@ class BugBERTDataModule(pl.LightningDataModule):
         self.val_dataset = BugBERTDataset(dataframe=val_samples.reset_index(), brs_dir=self.data_dir, tokenizer=tokenizer)
 
     def train_dataloader(self):
-        return DataLoader(self.train_dataset, batch_size=self.batch_size)
+        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=4)
 
     def val_dataloader(self):
-        return DataLoader(self.val_dataset, batch_size=self.batch_size)
+        return DataLoader(self.val_dataset, batch_size=self.batch_size, shuffle=False, num_workers=4)
