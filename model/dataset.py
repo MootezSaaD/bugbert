@@ -28,7 +28,7 @@ class BugBERTDataset(Dataset):
 
     def __getitem__(self, idx):
         file_names = self.samples.loc[idx, self.samples.columns].values[1:]
-        anchor, positive, negative = list(map(lambda x: os.path.join(self.brs_dir, x), file_names))
+        anchor, positive, negative = list(map(lambda x: os.path.join(self.brs_dir, f'{x}.txt'), file_names))
         raw_a, raw_p, raw_n = read_multiple_files(anchor, positive, negative)
         item = tuple(self.prepare_input(x) for x in (raw_a, raw_p, raw_n))
 
