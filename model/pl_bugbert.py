@@ -8,7 +8,7 @@ from transformers import get_cosine_schedule_with_warmup
 class BugBERTModel(pl.LightningModule):
     def __init__(self, model, optimizer, num_train_steps):
         super(BugBERTModel, self).__init__()
-        self.save_hyperparameters()
+        self.save_hyperparameters(ignore=['model'])
         self.model = model
         self.criterion = nn.TripletMarginLoss(margin=1.0, p=2)
         self.num_train_steps = num_train_steps
@@ -21,14 +21,14 @@ class BugBERTModel(pl.LightningModule):
         embd_x_a, embd_x_p, embd_x_n = self.model(batch)
 
         loss = self.criterion(embd_x_a, embd_x_p, embd_x_n)
-        self.log("train_loss", loss, on_epoch=True, logger=True)
+        self.log("train_loss", loss, on_step=True, on_epoch=True, prog_bar=True)
         return loss
 
     def validation_step(self, batch, batch_idx):
         embd_x_a, embd_x_p, embd_x_n = self.model(batch)
 
         loss = self.criterion(embd_x_a, embd_x_p, embd_x_n)
-        self.log("val_loss", loss, on_epoch=True, logger=True)
+        self.log("val_loss", loss, on_step=True, on_epoch=True, prog_bar=True)
         return loss
 
     def configure_optimizers(self):
