@@ -162,3 +162,5 @@ cython_debug/
 ThePublicJiraDataset/
 *.csv
 *.jsonl
+data/
+logs/
