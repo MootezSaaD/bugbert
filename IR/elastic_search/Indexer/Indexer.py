@@ -26,15 +26,15 @@ class Indexer:
                                   # http_auth=("username", "password"),
                                   verify_certs=False)
 
-    def index(self, id_, title, text, embeddings):
+    def index(self, bug_id, bug_title, bug_description, embeddings):
         """
         :param embeddings: Provide list of the embeddings. the dimensionsize should be defined in the config file.
         :return: Response. if the response is {'result': 'created'} then the document is indexed successfully.
         """
         document = {
-            "doc_id": id_,
-            "title": title,
-            "text": text,
+            "doc_id": bug_id,
+            "title": bug_title,
+            "text": bug_description,
             "embeddings": embeddings.tolist()
         }
         action = {"index": {"_index": self.index_name}}
