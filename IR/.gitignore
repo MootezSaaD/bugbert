@@ -508,3 +508,6 @@ fabric.properties
 share/
 /Scripts/
 /share/
+Scripts/
+./Scripts/
+./share/
