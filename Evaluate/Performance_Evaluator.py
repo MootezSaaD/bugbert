@@ -2,59 +2,6 @@ import math
 import numpy as np
 
 
-class AveragePrecision:
-    def calculate(self, gt, results):
-        hits = 0
-        sum_precision = 0.0
-
-        for i, doc_id in enumerate(results, 1):
-            if doc_id in gt:
-                hits += 1
-                precision = hits / i
-                sum_precision += precision
-
-        if hits == 0:
-            return 0.0
-
-        return sum_precision / hits
-
-
-class MAP:
-    def __init__(self):
-        self.avg_precision = AveragePrecision()
-
-    def calculate(self, ground_truths, search_results):
-        total_average_precision = 0.0
-
-        for gt, results in zip(ground_truths, search_results):
-            average_precision = self.avg_precision.calculate(gt, results)
-            total_average_precision += average_precision
-
-        return total_average_precision / len(ground_truths)
-
-
-class ReciprocalRank:
-    def calculate(self, gt, results):
-        for i, doc_id in enumerate(results, 1):
-            if doc_id in gt:
-                return 1.0 / i
-        return 0.0
-
-
-class MRR:
-    def __init__(self):
-        self.reciprocal_rank = ReciprocalRank()
-
-    def calculate(self, ground_truths, search_results):
-        total_reciprocal_rank = 0.0
-
-        for gt, results in zip(ground_truths, search_results):
-            reciprocal_rank = self.reciprocal_rank.calculate(gt, results)
-            total_reciprocal_rank += reciprocal_rank
-
-        return total_reciprocal_rank / len(ground_truths)
-
-
 class RecallAtK:
     def calculate(self, gt, results, k):
         relevant_items = len(gt)
@@ -138,20 +85,15 @@ search_results = [
 
 K = 5
 
-map_metric = MAP()
-mrr_metric = MRR()
+
 recall_at_k = AverageRecall_At_K()
 hit_at_k = AverageHit_At_K()
 precision_at_k = AveragePrecision_At_K()
 
-map_score = map_metric.calculate(ground_truths, search_results)
-mrr_score = mrr_metric.calculate(ground_truths, search_results)
 recall_score = recall_at_k.calculate(ground_truths, search_results, K)
 hit_score = hit_at_k.calculate(ground_truths, search_results, K)
 precision_score = precision_at_k.calculate(ground_truths, search_results, K)
 
-print(f"MAP: {map_score:.4f}")
-print(f"MRR: {mrr_score:.4f}")
 print(f"Recall@{K}: {recall_score:.4f}")
 print(f"Hit@{K}: {hit_score:.4f}")
 print(f"Precision@{K}: {precision_score:.4f}")
