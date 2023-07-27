@@ -29,7 +29,7 @@ class Searcher:
                                        # http_auth=("username", "password"),
                                        verify_certs=False)
 
-    def search(self, query_embeddings, size=10):
+    def search(self, query_embeddings, top_K_results=10):
         """
 
         :param query_embeddings: provide list of the embeddings. the dimensionsize should be defined in the config file.
@@ -46,7 +46,7 @@ class Searcher:
                     }
                 }
             },
-            "size": size,
+            "size": top_K_results,
             "_source": ["doc_id", "title", "text"]
         }
         result = self.es_client.search(index=self.index_name, body=search_query)
@@ -62,9 +62,9 @@ class Searcher:
             text = source.get("text")
 
             result_json = {
-                "doc_id": doc_id,
-                "title": title,
-                "text": text
+                "bug_id": doc_id,
+                "bug_title": title,
+                "bug_description": text
             }
 
             results_json.append(result_json)
