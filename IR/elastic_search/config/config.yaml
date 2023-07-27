@@ -1,0 +1,12 @@
+elasticsearch:
+  host: localhost # default: please don't change this if not necessary
+  port: 9200 # default: please don't change this if not necessary
+  index_name: shakepeare_index # change this to your index name: NECESSARY
+
+Embedding:
+  dimension: 384 # change this to your embedding dimension: NECESSARY
+
+#not necessary now
+Fields:
+  doc_id:
+  text:
