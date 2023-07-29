@@ -7,7 +7,7 @@ embedder = TextEmbedding()
 query_embedding = embedder.get_embedding(query)
 
 searcher = Searcher()
-result_json = searcher.search(query_embedding, size=2)
+result_json = searcher.search(query_embedding, top_K_results=2)
 
 
 print(result_json)

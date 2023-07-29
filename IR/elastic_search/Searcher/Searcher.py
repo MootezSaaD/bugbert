@@ -1,7 +1,7 @@
 from elasticsearch import Elasticsearch
-from elastic_search.config.Elasic_Config_Loader import Elasic_Config_Loader
-
 import json
+
+from IR.elastic_search.config.Elasic_Config_Loader import Elasic_Config_Loader
 
 
 class Searcher:
@@ -51,7 +51,7 @@ class Searcher:
         }
         result = self.es_client.search(index=self.index_name, body=search_query)
 
-        print(result)
+        # print(result)
 
         results_json = []
 

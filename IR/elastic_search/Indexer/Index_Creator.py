@@ -1,7 +1,15 @@
 from elasticsearch import Elasticsearch
-from elastic_search.config.Elasic_Config_Loader import Elasic_Config_Loader
-from elastic_search.config.ConfigLoader import ConfigLoader
 
+from IR.elastic_search.config.ConfigLoader import ConfigLoader
+from IR.elastic_search.config.Elasic_Config_Loader import Elasic_Config_Loader
+
+'''
+    CAUTION:
+    This is used to create an index in elastic search. This needs to be run only once. running it again will delete the index and create a new one.
+    Before running this, make sure to update the config file and fields. 
+    
+    Before running this, make sure elastic search is running. See readme for more details.
+'''
 class Index_Creator:
     def __init__(self):
         # Create an instance of ConfigLoader (config file will be loaded automatically)
