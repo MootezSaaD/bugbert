@@ -15,6 +15,7 @@
     </p>
     <p> 
         4. Run the command <code>elasticsearch.bat</code>
+        (its usually located in <code>〈elasticsearch_folder〉\bin</code> directory
     </p>
     <p> 
         5. Open a browser and navigate to <a href="http://localhost:9200/">http://localhost:9200/</a>

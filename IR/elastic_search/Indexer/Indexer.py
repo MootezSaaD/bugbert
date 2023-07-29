@@ -1,5 +1,7 @@
 from elasticsearch import Elasticsearch
-from elastic_search.config.Elasic_Config_Loader import Elasic_Config_Loader
+
+from IR.elastic_search.config.Elasic_Config_Loader import Elasic_Config_Loader
+
 
 class Indexer:
     def __init__(self, index_name=None):
@@ -31,11 +33,15 @@ class Indexer:
         :param embeddings: Provide list of the embeddings. the dimensionsize should be defined in the config file.
         :return: Response. if the response is {'result': 'created'} then the document is indexed successfully.
         """
+        # check embeddings is a list, if not convert it to a list
+        if not isinstance(embeddings, list):
+            embeddings = embeddings.tolist()
+
         document = {
             "doc_id": bug_id,
             "title": bug_title,
             "text": bug_description,
-            "embeddings": embeddings.tolist()
+            "embeddings": embeddings
         }
         action = {"index": {"_index": self.index_name}}
         response = self.es_client.index(index=self.index_name, body=document, refresh=True)
