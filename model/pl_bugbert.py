@@ -1,4 +1,5 @@
 import torch
+import torch.nn.functional as F
 from torch import nn
 import torch.optim as optim
 import pytorch_lightning as pl
@@ -9,7 +10,7 @@ class BugBERTModel(pl.LightningModule):
     def __init__(self, model, optimizer, num_train_steps):
         super(BugBERTModel, self).__init__()
         self.model = model
-        self.criterion = nn.TripletMarginLoss(margin=1.0, p=2)
+        self.criterion = nn.TripletMarginWithDistanceLoss(distance_function=lambda x, y: 1.0 - F.cosine_similarity(x, y))
         self.num_train_steps = num_train_steps
         self.optimizer = optimizer
 
