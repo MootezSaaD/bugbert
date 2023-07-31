@@ -20,7 +20,7 @@ def torch_setup(seed=4096):
 def main(hparams):
 
     encoder = AutoModel.from_pretrained(hparams.model_name_or_path)
-    tokenizer = AutoTokenizer.from_pretrained(hparams.model_name_or_path)
+    tokenizer = tokenizer = AutoTokenizer.from_pretrained(hparams.model_name_or_path, model_max_length=512)
 
     bugbert_model = BugBERT(encoder)
 
