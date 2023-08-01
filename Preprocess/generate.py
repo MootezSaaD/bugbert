@@ -85,7 +85,9 @@ duplicate_json = json.load(open("./dbrs_no_hl_with_desc.json","+r"))
 
 train_data, valid_data, test_data = split_dict(duplicate_json)
 
-
+json.dump(train_data,open("./dbrs_no_hl_with_desc.json_train","+w"))
+json.dump(valid_data,open("./dbrs_no_hl_with_desc.json_val","+w"))
+json.dump(test_data,open("./dbrs_no_hl_with_desc.json_test","+w"))
 triplets_dataset = generate_all_triplets(train_data)
 
 print(len(triplets_dataset))
