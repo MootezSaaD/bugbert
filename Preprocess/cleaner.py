@@ -28,12 +28,14 @@ class Preprocess:
         assert len(mongo_data) == len(mongo_ids)
 
         final_bug_id_set =  set()
+        bug_id_with_desc = {}
         
         for _id in tqdm(bug_ids):
             cont = True
             if _id in mongo_ids:
                 if json.loads(mongo_data[mongo_ids.index(_id)])['description']:
                     final_bug_id_set.add(_id)
+                    bug_id_with_desc[_id] = json.loads(mongo_data[mongo_ids.index(_id)])['description']
                 cont=False
 
             if cont:
@@ -41,7 +43,9 @@ class Preprocess:
                 if len(jira_data.loc[idx]) != 0:
                     if len(str(jira_data.loc[idx]['description'])) != 0:
                         final_bug_id_set.add(_id)
+                        bug_id_with_desc[_id] = str(jira_data.loc[idx]['description'])
 
+        pkl.dump(bug_id_with_desc,open("eda.pkl","+wb"))
 
         return final_bug_id_set
 
