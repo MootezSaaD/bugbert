@@ -1,0 +1,6 @@
+numpy==1.21.4+computecanada
+pandas==1.3.5+computecanada
+python-dateutil==2.8.2+computecanada
+pytz==2023.3+computecanada
+six==1.16.0+computecanada
+tqdm==4.65.0+computecanada
